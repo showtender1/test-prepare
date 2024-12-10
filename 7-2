@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+typedef struct Node{
+	int data;
+	struct Node *next;
+}Node;
+
+void printList(Node *head){
+	Node* p = head;//
+  // 연결 리스트를 순서대로 출력하는 연산
+//시작
+	while(p) {
+		printf("%d", p->data);
+		if(p->next) printf("->");
+		p = p->next;
+	}
+	printf("\n");
+//끝
+}
+Node* reverse(Node *head){
+	Node *p,*q, *r;
+  // 연결 리스트를 역순으로 연결하는 함수 작성
+//시작
+	p = head;
+	q = NULL;
+	while(p) {
+		r = q;
+		q = p;
+		p = p->next;
+		q->next = r;
+	}
+	return q;
+//끝
+}
+// 첫번째 노드로 삽입하는 연산
+Node*  insertFirst(Node *head, int data ){
+// 시작
+ Node* node = (Node *)malloc(sizeof(Node));
+	node->data = data;
+	node->next = head;
+	return node;
+// 끝
+}
+
+int main(){
+	Node* head = NULL ;
+	for(int i=10;i<=50;i+=10){
+	 //insertFirst 함수호출
+		head = insertFirst(head,i);
+		printList( head );
+	}
+	head = reverse(head);//역순으로 연결하는 함수 호출
+	printf("역순으로 출력\n");
+	printList( head );	
+	return 0;
+}
